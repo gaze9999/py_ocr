@@ -32,25 +32,25 @@ get credentials, if not or invalid, get new one
 return credential
 """
 def get_credentials():
-    cred_path = os.path.join("./", 'google-ocr-credential.json')
-    store = Storage(credential_path)
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-          creds = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-          creds = tools.run(flow, store)
-        print('憑證儲存於：' + cred_path)
-      return creds
+  cred_path = os.path.join("./", 'google-ocr-credential.json')
+  store = Storage(cred_path)
+  creds = store.get()
+  if not creds or creds.invalid:
+    flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+    flow.user_agent = APPLICATION_NAME
+    if flags:
+      creds = tools.run_flow(flow, store, flags)
+    else: # Needed only for compatibility with Python 2.6
+      creds = tools.run(flow, store)
+    print('憑證儲存於：' + cred_path)
+  return creds
 
 def main():
   creds = get_credentials()
   http = creds.authorize(httplib2.Http())
   service = discovery.build('drive', 'v3', http=http)
-  imgfile = '*.jpg' #input
-  txtfile = '*.txt' #output
+  imgfile = 'sample.jpg' #input
+  txtfile = 'output.txt' #output
 
   #upload to google cloud
   mime = 'application/vnd.google-apps.document'
