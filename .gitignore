@@ -1,3 +1,4 @@
 *.jpg
 *.bat
-client_id.json
+*.json
+*demo*
